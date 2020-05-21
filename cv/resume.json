@@ -1,0 +1,147 @@
+{
+  "basics": {
+    "name": "Anders Jørgensen",
+    "label": "FPGA Engineer",
+    "summary": "**FPGA engineer with 2+ years industry experience** specializing in network and telecom design. 27 years old.",
+    "website": "bsad.dk",
+    "phone": "###PHONE###",
+    "email": "###EMAIL###",
+    "picture": "https://media-exp1.licdn.com/dms/image/C4E03AQGpXAp9KbxCFg/profile-displayphoto-shrink_200_200/0?e=1594857600&v=beta&t=RrezHWLjOkdkrBVAKiGF_9zGzUvGTW71wb8FQuqWuEU",
+    "location": {
+      "address": "Hulgårdsvej 128",
+      "postalCode": "2400",
+      "city": "Copenhagen NV",
+      "countryCode": "DK",
+      "region": "Copenhagen"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "roededk",
+        "url": "https://github.com/roededk",
+        "iconClass": "fa fa-github-square"
+      },
+      {
+        "network": "Linkedin",
+        "username": "andersjoergensendk",
+        "url": "https://www.linkedin.com/in/andersjoergensendk",
+        "iconClass": "fa fa-linkedin-square"
+      }
+    ]
+  },
+  "work": [{
+      "company": "Zeuxion Aps",
+      "position": "FPGA/ASIC Design Engineer",
+      "startDate": "2018",
+      "endDate": "current",
+      "summary": "Developing RTL code for chip design used in the telecom industry (Hardware design)",
+      "highlights": [
+      ]
+    },{
+      "company": "DSL copenhagen",
+      "position": "IT student assistant",
+      "startDate": "2014",
+      "endDate": "2018",
+      "summary": "",
+      "highlights": [
+        "Server managment using SaltStack"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Technical University of Denmark",
+      "area": "M.Sc. Telecommunications",
+      "startDate": "2016",
+      "endDate": "2018",
+      "studyType": "University"
+    },
+    {
+      "institution": "Technical University of Denmark",
+      "area": "B.Sc. IT and Network technology",
+      "startDate": "2012",
+      "endDate": "2015",
+      "studyType": "University"
+    },
+    {
+      "institution": "Selandia Slagelse",
+      "area": "HTX",
+      "startDate": "2012",
+      "endDate": "2009",
+      "studyType": "High school"
+    },
+    {
+      "institution": "Høng Privat Skole",
+      "area": "Primary School",
+      "startDate": "1999",
+      "endDate": "2009",
+      "studyType": "Primary school"
+    }
+  ],
+  "skills": [
+    {
+      "name": "FPGA development",
+      "keywords": [
+        "RTL design",
+        "Modelsim",
+        "Quartus",
+        "Xilinx"]
+    },
+    {
+      "name": "Network",
+      "keywords": [
+        "IPv4",
+        "TCP",
+        "DNS",
+        "DHCP"
+      ]
+    },
+    {
+      "name": "System",
+      "keywords": [
+        "Docker",
+        "SaltStack",
+        "Linux",
+        "AWS",
+        "Xenserver",
+        "Git/SVN",
+        "Ubuntu"
+      ]
+    },
+    {
+      "name": "Langages",
+      "keywords": [
+        "VHDL",
+        "Verilog",
+        "Python",
+        "Java"
+      ]
+    }
+  ],
+  "interests": [
+    {
+      "name": "Network"
+    },
+    {
+      "name": "IT infrastructure"
+    },
+    {
+      "name": "Lego"
+    },
+    {
+      "name": "Car maintenance"
+    }
+  ],
+  "languages": [
+    {
+      "language": "Danish",
+      "level": "Native",
+      "fluency": "Native"
+    },
+    {
+      "language": "English",
+      "level": "Fluent",
+      "fluency": "Fluent"
+    }
+  ]
+}
