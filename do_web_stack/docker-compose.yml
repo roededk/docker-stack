@@ -1,0 +1,104 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik:latest"
+    container_name: "traefik_v2"
+    command:
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker
+      - --api
+        #- --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.leresolver.acme.caserver=https://acme-v01.api.letsencrypt.org/directory
+      - --certificatesresolvers.leresolver.acme.email=aj@bsad.dk
+      - --certificatesresolvers.leresolver.acme.storage=/acme.json
+      - --certificatesresolvers.leresolver.acme.tlschallenge=true
+      - --serversTransport.insecureSkipVerify=true
+
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/container/traefik/data/acme.json:/acme.json"
+    restart: always
+    labels:
+      # Dashboard
+      - "traefik.http.routers.traefik.rule=Host(`traefik2.bsad.dk`)"
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.tls.certresolver=leresolver"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.middlewares=authtraefik"
+      - "traefik.http.middlewares.authtraefik.basicauth.users=aj:$$apr1$$Q4drVqOX$$oO8bEe1t6pJJKPldUHscX0" # user/password
+      
+      # global redirect to https
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+
+      # middleware redirect
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+
+  whoami:
+    image: containous/whoami:v1.3.0
+    container_name: "whoami"
+          #image: prakhar1989/static-site
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`roedestudios.dk`,`monasoft.dk`)"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.tls=true"
+      - "traefik.http.routers.whoami.tls.certresolver=leresolver"
+      - "traefik.http.routers.whoami.middlewares=redirect-to-https"
+        #      - "traefik.http.services.whoami-service.loadbalancer.server.port=8888"
+        #- "traefik.http.middlewares.auth.basicauth.users=user:$$apr1$$q8eZFHjF$$Fvmkk//V6Btlaf2i/ju5n/" # user/password      
+
+  resume:
+    image: nouchka/japromis
+    build: ./../cv/
+    container_name: "resume"
+    labels:
+      - "traefik.http.routers.resume.rule=Host(`anders.bsad.dk`)"
+      - "traefik.http.routers.resume.entrypoints=websecure"
+      - "traefik.http.routers.resume.tls=true"
+      - "traefik.http.routers.resume.tls.certresolver=leresolver"
+      - "traefik.http.routers.resume.middlewares=redirect-to-https"
+    
+
+  unifi:
+    image: jacobalberty/unifi
+    container_name: "unifi"
+    volumes:
+      - /container/unifi/:/unifi
+    restart: always
+    ports:
+      - 3478:3478/udp
+      - 8080:8080
+      - 8843:8843
+      - 10001:10001/udp
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.unifi-https.tls=true"
+      - "traefik.http.routers.unifi-https.rule=Host(`unifi.bsad.dk`)"
+      - "traefik.http.routers.unifi-https.entrypoints=websecure"
+      - "traefik.http.routers.unifi-https.tls.certresolver=leresolver"
+      
+        #- "traefik.http.middlewares.my-redirect.redirectscheme.scheme=https"
+        # - "traefik.http.middlewares..redirectscheme.permanent=true"
+
+      - "traefik.http.routers.unifi-https.middlewares=redirect-to-https"
+
+      - "traefik.http.services.unifi-service.loadbalancer.server.port=8443"
+      - "traefik.http.services.unifi-service.loadbalancer.server.scheme=https"
+
+# Dashboard (https://localhost:8080)
+# Route
+# Basic auth (login: user | password: password)
+# Let's Encrypt (https://whoami.docker.localhost/)
+# Global HTTP to HTTPS redirection (http://whoami.docker.localhost/)
+# Dashboard [api@internal]
+# Dashboard [api@internal] + Basic auth (login: user | password: password)
+# Dashboard [api@internal] + TLS (https://traefik.docker.localhost/)
+
+# touch acme.json; chmod 600 acme.json
