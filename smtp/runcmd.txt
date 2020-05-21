@@ -1,0 +1,1 @@
+docker run -t -i   --name smtp   -e MAILNAME=unifi.bsad.dk   -e MYNETWORKS=83.93.40.70,172.17.0.1 -e RELAYHOST=smtp-relay.gmail.com:587 -e USE_TLS=no -p 25:25 -p 587:587 --restart=always -d panubo/postfix:latest
