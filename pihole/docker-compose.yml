@@ -6,18 +6,18 @@ services:
     container_name: pihole
     image: pihole/pihole:latest
     ports:
-      - "192.168.1.101:53:53/tcp"
-      - "192.168.1.101:53:53/udp"
+      - "192.168.1.10:53:53/tcp"
+      - "192.168.1.10:53:53/udp"
       - "67:67/udp"
       - "80:80/tcp"
       - "443:443/tcp"
     environment:
-      TZ: 'America/Chicago'
-      # WEBPASSWORD: 'set a secure password here or it will be random'
+      TZ: 'Europe/Copenhagen'
+      WEBPASSWORD: 'eXot9c7foXxrybj2'
     # Volumes store your data between container upgrades
     volumes:
-       - './etc-pihole/:/etc/pihole/'
-       - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+       - '/tank/container/data/pihole/etc-pihole/:/etc/pihole/'
+       - '/tank/container/data/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
     dns:
       - 127.0.0.1
       - 1.1.1.1
