@@ -1,0 +1,12 @@
+version: "3"
+services:
+  node-red:
+          #image: nodered/node-red-docker
+    image: nodered/node-red
+    volumes:
+      - "/tank/container/data/node-red:/data"
+    user: "0"
+    #networks:
+    #  - localnet
+    ports:
+      - "1880:1880"

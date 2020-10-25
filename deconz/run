@@ -1,0 +1,10 @@
+docker run -d \
+    --name=deconz \
+    --net=host \
+    --restart=always \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /opt/deconz:/root/.local/share/dresden-elektronik/deCONZ \
+    --device=/dev/ttyACM0 \
+    -e DECONZ_WEB_PORT=8280 \
+    -e DECONZ_WS_PORT=8380 \
+    marthoc/deconz
